@@ -31,11 +31,16 @@ async def predict(video_id:str):
         ).execute()
         view_count = video_response.get("items")[0].get("statistics").get("viewCount")
         like_count = video_response.get("items")[0].get("statistics").get("likeCount")
+        if(view_count==None):
+            view_count=0
+        if(like_count==None):
+            like_count=0
         predict_array = await prediction.load_predict(comment_data)
         predict_array = list(predict_array)
         print(f"predict array of video_id={video_id}: ",len(predict_array))
         percent = predict_array.count(4)/len(predict_array)*100
-        percent = (float(like_count)//float(view_count)) * 50 + (percent * 0.5); 
+        if(view_count!=0):
+            percent = (float(like_count)//float(view_count)) * 50 + (percent * 0.5)
         percent = round(percent)
         return {"video_id":video_id,
             "predicted_score": percent,
