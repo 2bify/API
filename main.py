@@ -28,22 +28,3 @@ app.include_router(search.router)
 app.include_router(predict.router)
 app.include_router(add_data.router)
 app.include_router(total.router)
-
-'''@app.middleware("http")
-async def db_session_middleware(request, call_next):
-    response = await call_next(request)
-    try:
-        async with async_get_db() as session:
-            try:
-                await session.commit()
-            except:
-                await session.rollback()
-                raise
-            finally:
-                await session.close()
-    except:
-        traceback.print_exc()
-    return response
-    '''
-if __name__ == "__main__":
-    uvicorn.run("main:app", workers=1)
