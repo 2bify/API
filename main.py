@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import predict, search, add_data
+from routers import predict, search, add_data, total
 import models
 from database import engine
 from fastapi.middleware.cors import CORSMiddleware
@@ -27,6 +27,7 @@ async def home():
 app.include_router(search.router)
 app.include_router(predict.router)
 app.include_router(add_data.router)
+app.include_router(total.router)
 
 '''@app.middleware("http")
 async def db_session_middleware(request, call_next):
