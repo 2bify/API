@@ -17,7 +17,6 @@ async def predict(video_id:str):
     if(len(comment_data)>30):
         predict_array = await prediction.load_predict(comment_data)
         predict_array = list(predict_array)
-        print(f"predict array of video_id={video_id}: ",len(predict_array))
         percent = predict_array.count(4)/len(predict_array)*100
         percent = round(percent)
         return {"video_id":video_id,
